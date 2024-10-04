@@ -42,14 +42,14 @@ const Detail = () => {
                 <>
                   <img
                     className="w-24 rounded-md"
-                    src={data.country.flags.png}
-                    alt={data.country.flags.alt}
+                    src={data?.country?.flags?.png}
+                    alt={data?.country?.flags?.alt}
                   />
                   <h1
                     data-testid="country-title"
                     className="text-gray-900 text-3xl font-bold"
                   >
-                    {data.country.altSpellings[1]}
+                    {data?.country?.altSpellings[1]}
                   </h1>
                 </>
               )

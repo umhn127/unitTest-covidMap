@@ -1,0 +1,49 @@
+import { render } from "@testing-library/react";
+import Error from ".";
+import userEvent from "@testing-library/user-event";
+
+//* describe fonk. özelliğidir (before/afterEach before/afterAll)
+//* kod tekrarını önlemek için
+// beforeEach(() => {
+//   console.log("yeni test başlamadan önce 😀😀");
+// });
+
+// afterEach(() => {
+//   console.log("test bittikten sonra 😂😂");
+// });
+
+// beforeAll(() => {
+//   console.log("bütün testlerden önce 😀😀");
+// });
+
+// afterAll(() => {
+//   console.log("bütün testlerden sonra 😀😀");
+// });
+
+describe("error bileşeni testleri", () => {
+  // gerekli kurumlar
+  const user = userEvent.setup();
+  const mockFn = jest.fn();
+  let comp;
+
+  //  her testin öncesinde error bileşeni render edilir
+  beforeEach(() => {
+    comp = render(
+      <Error message={"Failed with status code of 404"} retry={mockFn} />
+    );
+  });
+
+  // TEST - 1
+  it("doğru hata mesajını gösterir", () => {
+    comp.getByText(/failed with/i);
+  });
+
+  // TEST - 2
+  it("tekrar dene butonu çalışır", async () => {
+    const button = comp.getByRole("button");
+
+    await user.click(button);
+
+    expect(mockFn).toHaveBeenCalled();
+  });
+});

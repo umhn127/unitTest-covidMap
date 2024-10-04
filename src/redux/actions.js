@@ -22,7 +22,7 @@ export const getCountryData = createAsyncThunk(
 
     // iki api isteğinide aynı anda at
     const responses = await Promise.all([req1, req2]);
-    console.log(responses);
+
     // covid verilerinin içerisindeki region nesnesini dağıt
     const covid = {
       ...responses[0].data.data[0],
